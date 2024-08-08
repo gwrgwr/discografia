@@ -3,28 +3,28 @@ import 'package:discografia/models/musica_model.dart';
 import 'package:discografia/services/api_handler.dart';
 import 'package:meta/meta.dart';
 
-part 'disco_event.dart';
-part 'disco_state.dart';
+part 'music_event.dart';
+part 'music_state.dart';
 
-class DiscoBloc extends Bloc<DiscoEvent, DiscoState> {
+class MusicBloc extends Bloc<MusicEvent, MusicState> {
   final ApiHandler _apiHandler;
-  DiscoBloc(this._apiHandler) : super(DiscoInitial()) {
-    on<DiscoGetMusic>((event, emit) async {
+  MusicBloc(this._apiHandler) : super(MusicInitial()) {
+    on<GetMusic>((event, emit) async {
       final list = await _apiHandler.fetchMusicas();
-      emit(DiscoSuccess(list: list));
+      emit(MusicSuccess(list: list));
     });
 
-    on<DiscoDeleteMusic>((event, emit) async {
+    on<DeleteMusic>((event, emit) async {
       _apiHandler.deleteMusica(event.id);
-      add(DiscoGetMusic());
+      add(GetMusic());
     });
 
-    on<DiscoAddMusic>((event, emit) async {
+    on<AddMusic>((event, emit) async {
       _apiHandler.postMusica(event.musicaModel);
-      add(DiscoGetMusic());
+      add(GetMusic());
     });
 
-    on<DiscoUpdateMusic>((event, emit) async {
+    on<UpdateMusic>((event, emit) async {
       _apiHandler.updateMusica(event.musicaModel.musicaId!, event.musicaModel);
     });
   }
