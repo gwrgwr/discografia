@@ -82,4 +82,18 @@ public class ArtistaController : ControllerBase
 
         return Ok(artista);
     }
+
+    [HttpPut("{id:int:min(1)}")]
+    public ActionResult<Artista> Put(int id, Artista artista)
+    {
+        if (id != artista.ArtistaId)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(artista).State = EntityState.Modified;
+        _context.SaveChanges();
+
+        return Ok(artista);
+    }
 }

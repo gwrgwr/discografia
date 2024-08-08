@@ -12,11 +12,11 @@ class ArtistaModel {
   final int qtdeMusica;
   final List<MusicaModel>? musicasArtista;
   ArtistaModel({
-    required this.artistaId,
+    this.artistaId,
     required this.nome,
     required this.idade,
     required this.qtdeMusica,
-    required this.musicasArtista,
+    this.musicasArtista,
   });
 
   ArtistaModel copyWith({
@@ -41,7 +41,7 @@ class ArtistaModel {
       'nome': nome,
       'idade': idade,
       'qtdeMusica': qtdeMusica,
-      'musicasArtista': musicasArtista!.map((x) => x.toMap()).toList(),
+      'musicasArtista': musicasArtista?.map((x) => x.toMap()).toList() ?? [],
     };
   }
 

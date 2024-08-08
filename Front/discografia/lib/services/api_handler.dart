@@ -89,14 +89,14 @@ class ApiHandler {
   Future<void> postArtista(ArtistaModel artista) async {
     final uri = Uri.parse("https://localhost:7107/Artista");
     try {
-      final response = http.post(
+      http.post(
         uri,
         headers: {"Content-type": "application/json; charset=UTF-8"},
-        body: {
+        body: jsonEncode({
           "nome": artista.nome,
           "idade": artista.idade,
           "qtdeMusica": artista.qtdeMusica,
-        },
+        }),
       );
     } catch (e) {
       print(e);
@@ -106,7 +106,7 @@ class ApiHandler {
   Future<void> putArtista(ArtistaModel artista, int id) async {
     final uri = Uri.parse("https://localhost:7101/Artista/$id");
     try {
-      final response = http.put(uri, headers: {
+      http.put(uri, headers: {
         "Content-type": "application/json; charset=UTF-8",
       }, body: {
         "artistaId": id,
@@ -122,7 +122,7 @@ class ApiHandler {
   Future<void> deleteArtista(int id) async {
     final uri = Uri.parse("https://localhost:7107/Artista/$id");
     try {
-      final response = http.delete(uri, headers: {
+      http.delete(uri, headers: {
         "Content-type": "application/json; charset=UTF-8",
       });
     } catch (e) {
