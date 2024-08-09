@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateArtist extends StatelessWidget {
-  CreateArtist({super.key});
-
+  CreateArtist({required this.bloc, super.key});
+  final ArtistaBloc bloc;
   final TextEditingController nomeArtista = TextEditingController();
   final TextEditingController idadeArtista = TextEditingController();
   final TextEditingController qtdeMusicaArtista = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<ArtistaBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Artista"),
@@ -97,7 +96,7 @@ class CreateArtist extends StatelessWidget {
           nomeArtista.clear();
           idadeArtista.clear();
           qtdeMusicaArtista.clear();
-          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Artista adicionado com sucesso!')));
         },
       ),
     );

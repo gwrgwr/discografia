@@ -24,57 +24,58 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('a'),
+        title: Text('Discografia'),
         actions: [
           IconButton(
               onPressed: () {
                 widget.bloc.add(GetArtista());
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.settings))
         ],
-        centerTitle: true,
       ),
-      body: Center(
-        child: BlocBuilder<ArtistaBloc, ArtistaState>(
-          bloc: widget.bloc,
-          builder: (context, state) {
-            if (state is ArtistaLoading) {
-              print("entrou aqui loading");
+      body: BlocBuilder<ArtistaBloc, ArtistaState>(
+        bloc: widget.bloc,
+        builder: (context, state) {
+          if (state is ArtistaLoading) {
+            return CircularProgressIndicator();
+          }
 
-              return CircularProgressIndicator();
-            }
+          if (state is ArtistaSuccess) {
+            // return ListView.separated(
+            //   shrinkWrap: true,
+            //   itemCount: state.lista.length,
+            //   separatorBuilder: (context, index) => SizedBox(height: 10),
+            //   itemBuilder: (context, index) {
+            //     final item = state.lista[index];
+            //     return Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: [Text(item.nome), Text(item.qtdeMusica.toString())],
+            //     );
+            //   },
+            // );
+            return GridView.builder(
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                  itemCount: state.lista.length,
+                  shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final item = state.lista[index];
+                return Column(
+                  children: [
+                    Text(item.nome),
+                    Text(item.idade.toString()),
+                  ],
+                );
+              },
+            );
+          }
 
-            if (state is ArtistaSuccess) {
-              print("entrou aqui success");
-              print(state.lista.length);
-              return ListView.separated(
-                shrinkWrap: true,
-                itemCount: state.lista.length,
-                separatorBuilder: (context, index) => SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  print("entrou aqui listview");
+          if (state is ArtistaErro) {
+            return Text(state.message);
+          }
 
-                  final item = state.lista[index];
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(item.nome),
-                      Text(item.qtdeMusica.toString())
-                    ],
-                  );
-                },
-              );
-            }
-
-            if (state is ArtistaErro) {
-              print("entrou aqui erro");
-              return Text(state.message);
-            }
-            print("entrou aqui container");
-
-            return Container();
-          },
-        ),
+          return Container();
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -83,13 +84,15 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(
               builder: (context) {
                 return BlocProvider.value(
-                  value: BlocProvider.of<ArtistaBloc>(context),
-                  child: CreateArtist(),
+                  value: widget.bloc,
+                  child: CreateArtist(
+                    bloc: widget.bloc,
+                  ),
                 );
               },
             ),
           ).then((_) {
-            BlocProvider.of<ArtistaBloc>(context).add(GetArtista());
+            widget.bloc.add(GetArtista());
           });
         },
       ),
