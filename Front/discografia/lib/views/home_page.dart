@@ -39,15 +39,21 @@ class _HomePageState extends State<HomePage> {
           bloc: widget.bloc,
           builder: (context, state) {
             if (state is ArtistaLoading) {
+              print("entrou aqui loading");
+
               return CircularProgressIndicator();
             }
 
             if (state is ArtistaSuccess) {
+              print("entrou aqui success");
+              print(state.lista.length);
               return ListView.separated(
                 shrinkWrap: true,
                 itemCount: state.lista.length,
                 separatorBuilder: (context, index) => SizedBox(height: 10),
                 itemBuilder: (context, index) {
+                  print("entrou aqui listview");
+
                   final item = state.lista[index];
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -61,8 +67,11 @@ class _HomePageState extends State<HomePage> {
             }
 
             if (state is ArtistaErro) {
+              print("entrou aqui erro");
               return Text(state.message);
             }
+            print("entrou aqui container");
+
             return Container();
           },
         ),
@@ -73,10 +82,15 @@ class _HomePageState extends State<HomePage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return CreateArtist(bloc: widget.bloc,);
+                return BlocProvider.value(
+                  value: BlocProvider.of<ArtistaBloc>(context),
+                  child: CreateArtist(),
+                );
               },
             ),
-          );
+          ).then((_) {
+            BlocProvider.of<ArtistaBloc>(context).add(GetArtista());
+          });
         },
       ),
     );

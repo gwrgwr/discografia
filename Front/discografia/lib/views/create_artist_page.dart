@@ -2,16 +2,17 @@ import 'package:discografia/bloc/artista_bloc.dart';
 import 'package:discografia/bloc/artista_event.dart';
 import 'package:discografia/models/artista_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateArtist extends StatelessWidget {
-  CreateArtist({required this.bloc, super.key});
+  CreateArtist({super.key});
 
   final TextEditingController nomeArtista = TextEditingController();
   final TextEditingController idadeArtista = TextEditingController();
   final TextEditingController qtdeMusicaArtista = TextEditingController();
-  final ArtistaBloc bloc;
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<ArtistaBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Adicionar Artista"),

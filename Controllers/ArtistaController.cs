@@ -18,7 +18,7 @@ public class ArtistaController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Artista>> Get()
     {
-        var content = _context.Artistas.Take(10).ToList();
+        var content = _context.Artistas.ToList();
         if (content is null)
         {
             return NotFound();

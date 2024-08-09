@@ -5,9 +5,11 @@ import 'package:discografia/models/musica_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHandler {
+
+  final String address = "localhost";
   // Musica
   Future<List<MusicaModel>> fetchMusicas() async {
-    final uri = Uri.parse("https://localhost:7107/Musica");
+    final uri = Uri.parse("https://$address:7107/Musica");
     List<MusicaModel> list = [];
     try {
       final response = await http.get(uri);
@@ -25,7 +27,7 @@ class ApiHandler {
   }
 
   Future<void> postMusica(MusicaModel musica) async {
-    final uri = Uri.parse("https://localhost:7107/Musica");
+    final uri = Uri.parse("https://$address:7107/Musica");
     try {
       final response = await http.post(
         uri,
@@ -44,7 +46,7 @@ class ApiHandler {
   }
 
   Future<void> deleteMusica(int id) async {
-    final uri = Uri.parse("https://localhost:7107/Musica/$id");
+    final uri = Uri.parse("https://$address:7107/Musica/$id");
     try {
       http.delete(uri,
           headers: {"Content-Type": "application/json; charset=UTF-8"});
@@ -54,7 +56,7 @@ class ApiHandler {
   }
 
   Future<void> updateMusica(int id, MusicaModel musica) async {
-    final uri = Uri.parse("https://localhost:7107/Musica/$id");
+    final uri = Uri.parse("https://$address:7107/Musica/$id");
     try {
       http.put(
         uri,
@@ -74,7 +76,7 @@ class ApiHandler {
   // Artista
 
   Future<List<ArtistaModel>> fetchArtista() async {
-    final uri = Uri.parse("https://localhost:7107/Artista");
+    final uri = Uri.parse("https://$address:7107/Artista");
     List<ArtistaModel> lista = [];
     try {
       final response = await http.get(uri);
@@ -87,7 +89,7 @@ class ApiHandler {
   }
 
   Future<void> postArtista(ArtistaModel artista) async {
-    final uri = Uri.parse("https://localhost:7107/Artista");
+    final uri = Uri.parse("https://$address:7107/Artista");
     try {
       http.post(
         uri,
@@ -104,7 +106,7 @@ class ApiHandler {
   }
 
   Future<void> putArtista(ArtistaModel artista, int id) async {
-    final uri = Uri.parse("https://localhost:7101/Artista/$id");
+    final uri = Uri.parse("https://$address:7101/Artista/$id");
     try {
       http.put(uri, headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -120,7 +122,7 @@ class ApiHandler {
   }
 
   Future<void> deleteArtista(int id) async {
-    final uri = Uri.parse("https://localhost:7107/Artista/$id");
+    final uri = Uri.parse("https://$address:7107/Artista/$id");
     try {
       http.delete(uri, headers: {
         "Content-type": "application/json; charset=UTF-8",
