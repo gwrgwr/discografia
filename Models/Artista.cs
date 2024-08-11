@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Discografia.Models;
 
@@ -14,7 +15,9 @@ public class Artista
     [Required]
     public int Idade { get; set; }
     [Required]
+    public string? imgUrl { get; set; }
+    [Required]
     public int qtdeMusica { get; set; }
-    
+    [JsonIgnore]
     public ICollection<Musica>? musicasArtista { get; set; }
 }

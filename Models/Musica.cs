@@ -15,5 +15,8 @@ public class Musica
     [StringLength(20)]
     public string? Duracao { get; set; }
     [Required]
+    [StringLength(20)]
+    public string? Genero { get; set; }
+    [Required]
     public int ArtistaId { get; set; }
 }

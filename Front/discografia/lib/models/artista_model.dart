@@ -10,12 +10,14 @@ class ArtistaModel {
   final String nome;
   final int idade;
   final int qtdeMusica;
+  final String imgUrl;
   final List<MusicaModel>? musicasArtista;
   ArtistaModel({
     this.artistaId,
     required this.nome,
     required this.idade,
     required this.qtdeMusica,
+    required this.imgUrl,
     this.musicasArtista,
   });
 
@@ -24,6 +26,7 @@ class ArtistaModel {
     String? nome,
     int? idade,
     int? qtdeMusica,
+    String? imgUrl,
     List<MusicaModel>? musicasArtista,
   }) {
     return ArtistaModel(
@@ -31,6 +34,7 @@ class ArtistaModel {
       nome: nome ?? this.nome,
       idade: idade ?? this.idade,
       qtdeMusica: qtdeMusica ?? this.qtdeMusica,
+      imgUrl: imgUrl ?? this.imgUrl,
       musicasArtista: musicasArtista ?? this.musicasArtista,
     );
   }
@@ -41,6 +45,7 @@ class ArtistaModel {
       'nome': nome,
       'idade': idade,
       'qtdeMusica': qtdeMusica,
+      'imgUrl': imgUrl,
       'musicasArtista': musicasArtista?.map((x) => x.toMap()).toList() ?? [],
     };
   }
@@ -51,6 +56,7 @@ class ArtistaModel {
       nome: map['nome'] as String,
       idade: map['idade'] as int,
       qtdeMusica: map['qtdeMusica'] as int,
+      imgUrl: map['imgUrl'] as String,
       musicasArtista: map['musicasArtista'] != null ? List<MusicaModel>.from((map['musicasArtista'] as List<int>).map<MusicaModel?>((x) => MusicaModel.fromMap(x as Map<String,dynamic>),),) : null,
     );
   }
@@ -61,7 +67,7 @@ class ArtistaModel {
 
   @override
   String toString() {
-    return 'ArtistaModel(artistaId: $artistaId, nome: $nome, idade: $idade, qtdeMusica: $qtdeMusica, musicasArtista: $musicasArtista)';
+    return 'ArtistaModel(artistaId: $artistaId, nome: $nome, idade: $idade, qtdeMusica: $qtdeMusica, imgUrl: $imgUrl, musicasArtista: $musicasArtista)';
   }
 
   @override
@@ -73,6 +79,7 @@ class ArtistaModel {
       other.nome == nome &&
       other.idade == idade &&
       other.qtdeMusica == qtdeMusica &&
+      other.imgUrl == imgUrl &&
       listEquals(other.musicasArtista, musicasArtista);
   }
 
@@ -82,6 +89,7 @@ class ArtistaModel {
       nome.hashCode ^
       idade.hashCode ^
       qtdeMusica.hashCode ^
+      imgUrl.hashCode ^
       musicasArtista.hashCode;
   }
 }

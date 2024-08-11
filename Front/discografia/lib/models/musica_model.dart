@@ -6,11 +6,13 @@ class MusicaModel {
   final String nome;
   final String duracao;
   final int artistaId;
+  final String genero;
   MusicaModel({
     this.musicaId,
     required this.nome,
     required this.duracao,
     required this.artistaId,
+    required this.genero,
   });
 
   MusicaModel copyWith({
@@ -18,12 +20,14 @@ class MusicaModel {
     String? nome,
     String? duracao,
     int? artistaId,
+    String? genero,
   }) {
     return MusicaModel(
       musicaId: musicaId ?? this.musicaId,
       nome: nome ?? this.nome,
       duracao: duracao ?? this.duracao,
       artistaId: artistaId ?? this.artistaId,
+      genero: genero ?? this.genero,
     );
   }
 
@@ -33,6 +37,7 @@ class MusicaModel {
       'nome': nome,
       'duracao': duracao,
       'artistaId': artistaId,
+      'genero': genero,
     };
   }
 
@@ -42,6 +47,7 @@ class MusicaModel {
       nome: map['nome'] as String,
       duracao: map['duracao'] as String,
       artistaId: map['artistaId'] as int,
+      genero: map['genero'] as String,
     );
   }
 
@@ -51,7 +57,7 @@ class MusicaModel {
 
   @override
   String toString() {
-    return 'MusicaModel(musicaId: $musicaId, nome: $nome, duracao: $duracao, artistaId: $artistaId)';
+    return 'MusicaModel(musicaId: $musicaId, nome: $nome, duracao: $duracao, artistaId: $artistaId, genero: $genero)';
   }
 
   @override
@@ -62,7 +68,8 @@ class MusicaModel {
       other.musicaId == musicaId &&
       other.nome == nome &&
       other.duracao == duracao &&
-      other.artistaId == artistaId;
+      other.artistaId == artistaId &&
+      other.genero == genero;
   }
 
   @override
@@ -70,6 +77,7 @@ class MusicaModel {
     return musicaId.hashCode ^
       nome.hashCode ^
       duracao.hashCode ^
-      artistaId.hashCode;
+      artistaId.hashCode ^
+      genero.hashCode;
   }
 }

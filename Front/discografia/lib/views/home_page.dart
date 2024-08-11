@@ -53,20 +53,48 @@ class _HomePageState extends State<HomePage> {
             //     );
             //   },
             // );
-            return GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                  itemCount: state.lista.length,
-                  shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final item = state.lista[index];
-                return Column(
-                  children: [
-                    Text(item.nome),
-                    Text(item.idade.toString()),
-                  ],
-                );
-              },
+
+            if (state.lista.isEmpty) {
+              return Center(
+                child: Text("Lista de artistas vazia"),
+              );
+            }
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2.2,
+                  crossAxisSpacing: 2.2,
+                  mainAxisExtent: 150,
+                ),
+                itemCount: state.lista.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final item = state.lista[index];
+                  return Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        opacity: 0.95,
+                        image: NetworkImage(
+                          item.imgUrl,
+                          scale: 0.8,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(item.nome),
+                        Text(item.idade.toString()),
+                      ],
+                    ),
+                  );
+                },
+              ),
             );
           }
 

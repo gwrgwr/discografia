@@ -1,14 +1,31 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:discografia/models/artista_model.dart';
 import 'package:discografia/models/musica_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiHandler {
+  // Change to "10.0.2.2 when on avd"
 
-  final String address = "localhost";
+  String getAdress() {
+    late String address;
+    if (kIsWeb) {
+      address = "localhost";
+    } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      address = "localhost";
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      address = "10.0.2.2";
+    } else {
+      print("Ih rapaz KKKKKKKKKKKKKK");
+    }
+    return address;
+  }
+
   // Musica
   Future<List<MusicaModel>> fetchMusicas() async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Musica");
     List<MusicaModel> list = [];
     try {
@@ -27,6 +44,7 @@ class ApiHandler {
   }
 
   Future<void> postMusica(MusicaModel musica) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Musica");
     try {
       final response = await http.post(
@@ -46,6 +64,7 @@ class ApiHandler {
   }
 
   Future<void> deleteMusica(int id) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Musica/$id");
     try {
       http.delete(uri,
@@ -56,6 +75,7 @@ class ApiHandler {
   }
 
   Future<void> updateMusica(int id, MusicaModel musica) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Musica/$id");
     try {
       http.put(
@@ -76,6 +96,7 @@ class ApiHandler {
   // Artista
 
   Future<List<ArtistaModel>> fetchArtista() async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Artista");
     List<ArtistaModel> lista = [];
     try {
@@ -89,6 +110,7 @@ class ApiHandler {
   }
 
   Future<void> postArtista(ArtistaModel artista) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Artista");
     try {
       http.post(
@@ -98,6 +120,7 @@ class ApiHandler {
           "nome": artista.nome,
           "idade": artista.idade,
           "qtdeMusica": artista.qtdeMusica,
+          "imgUrl": artista.imgUrl,
         }),
       );
     } catch (e) {
@@ -106,6 +129,7 @@ class ApiHandler {
   }
 
   Future<void> putArtista(ArtistaModel artista, int id) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7101/Artista/$id");
     try {
       http.put(uri, headers: {
@@ -122,6 +146,7 @@ class ApiHandler {
   }
 
   Future<void> deleteArtista(int id) async {
+    String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Artista/$id");
     try {
       http.delete(uri, headers: {

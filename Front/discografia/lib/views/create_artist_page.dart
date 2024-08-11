@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:discografia/bloc/artista_bloc.dart';
 import 'package:discografia/bloc/artista_event.dart';
 import 'package:discografia/models/artista_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateArtist extends StatelessWidget {
   CreateArtist({required this.bloc, super.key});
@@ -10,6 +11,7 @@ class CreateArtist extends StatelessWidget {
   final TextEditingController nomeArtista = TextEditingController();
   final TextEditingController idadeArtista = TextEditingController();
   final TextEditingController qtdeMusicaArtista = TextEditingController();
+  final TextEditingController imgUrlArtista = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +83,49 @@ class CreateArtist extends StatelessWidget {
                 ),
               ),
             ),
+            if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) ...[
+              SizedBox(height: 30),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "URL da imagem",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: imgUrlArtista,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              )
+            ] else ...[
+              SizedBox(height: 30),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Quantidade de músicas",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: imgUrlArtista,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              )
+            ]
           ],
         ),
       ),
@@ -91,12 +136,20 @@ class CreateArtist extends StatelessWidget {
             nome: nomeArtista.text,
             idade: int.parse(idadeArtista.text),
             qtdeMusica: int.parse(qtdeMusicaArtista.text),
+            imgUrl: imgUrlArtista.text,
           );
           bloc.add(PostArtista(artistaModel: artistaModel));
           nomeArtista.clear();
           idadeArtista.clear();
           qtdeMusicaArtista.clear();
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Artista adicionado com sucesso!')));
+          imgUrlArtista.clear();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Artista adicionado com sucesso!',
+              ),
+            ),
+          );
         },
       ),
     );
