@@ -132,14 +132,18 @@ class ApiHandler {
     String address = getAdress();
     final uri = Uri.parse("https://$address:7101/Artista/$id");
     try {
-      http.put(uri, headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      }, body: {
-        "artistaId": id,
-        "nome": artista.nome,
-        "idade": artista.idade,
-        "qtdeMusica": artista.qtdeMusica,
-      });
+      http.put(
+        uri,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: {
+          "artistaId": id,
+          "nome": artista.nome,
+          "idade": artista.idade,
+          "qtdeMusica": artista.qtdeMusica,
+        },
+      );
     } catch (e) {
       print(e);
     }
