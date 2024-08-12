@@ -18,7 +18,6 @@ class ApiHandler {
     } else if (Platform.isAndroid || Platform.isIOS) {
       address = "10.0.2.2";
     } else {
-      print("Ih rapaz KKKKKKKKKKKKKK");
     }
     return address;
   }
@@ -39,7 +38,6 @@ class ApiHandler {
     } catch (e) {
       print(e.toString());
     }
-    print(list);
     return list;
   }
 
@@ -56,9 +54,7 @@ class ApiHandler {
           "artistaId": musica.artistaId,
         }),
       );
-      print(response.body);
     } catch (e) {
-      print(e.toString());
       print(e);
     }
   }

@@ -43,7 +43,7 @@ class CreateArtist extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -63,7 +63,7 @@ class CreateArtist extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -84,7 +84,7 @@ class CreateArtist extends StatelessWidget {
               ),
             ),
             if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) ...[
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -105,7 +105,7 @@ class CreateArtist extends StatelessWidget {
                 ),
               )
             ] else ...[
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -130,7 +130,7 @@ class CreateArtist extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           ArtistaModel artistaModel = ArtistaModel(
             nome: nomeArtista.text,
@@ -144,7 +144,7 @@ class CreateArtist extends StatelessWidget {
           qtdeMusicaArtista.clear();
           imgUrlArtista.clear();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text(
                 'Artista adicionado com sucesso!',
               ),

@@ -2,6 +2,7 @@ import 'package:discografia/bloc/artista_bloc.dart';
 import 'package:discografia/bloc/artista_event.dart';
 import 'package:discografia/bloc/artista_state.dart';
 import 'package:discografia/views/create_artist_page.dart';
+import 'package:discografia/widgets/artist_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,8 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Widget> listWidgets = [];
-
   @override
   void initState() {
     super.initState();
@@ -26,31 +25,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Discografia'),
+        title: const Text('Discografia'),
         actions: [
           IconButton(
-              onPressed: () {
-                widget.bloc.add(GetArtista());
-              },
-              icon: Icon(Icons.settings))
+            onPressed: () {
+              widget.bloc.add(GetArtista());
+            },
+            icon: const Icon(
+              Icons.settings,
+            ),
+          )
         ],
       ),
       body: Column(
         children: [
-          ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: listWidgets.length,
-            separatorBuilder: (context, index) => SizedBox(width: 5),
-            itemBuilder: (context, index) {
-              final item = listWidgets[index];
-            },
-          ),
+          // TODO fetch from db local items to list, to make blocbuilder easier to rebuild after post;
           BlocBuilder<ArtistaBloc, ArtistaState>(
             bloc: widget.bloc,
             builder: (context, state) {
               if (state is ArtistaLoading) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
 
               if (state is ArtistaSuccess) {
@@ -68,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 // );
 
                 if (state.lista.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Text("Lista de artistas vazia"),
                   );
                 }
@@ -79,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 2.2,
+                      mainAxisSpacing: 20,
                       crossAxisSpacing: 20,
                       mainAxisExtent: 150,
                     ),
@@ -87,41 +81,7 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final item = state.lista[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              item.imgUrl,
-                              scale: 0.8,
-                            ),
-                          ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            Center(
-                              child: Text(
-                                item.nome,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
-                      );
+                      return ArtistCard(item: item);
                     },
                   ),
                 );
@@ -137,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
