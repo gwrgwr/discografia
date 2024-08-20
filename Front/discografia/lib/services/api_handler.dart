@@ -105,6 +105,20 @@ class ApiHandler {
     return lista;
   }
 
+  Future<List<MusicaModel>> fetchArtistaMusicas({required int artistaId}) async {
+    String address = getAdress();
+    final uri = Uri.parse("https://$address:7107/Artista/$artistaId/musicas");
+    List<MusicaModel> lista = [];
+    try {
+      final response = await http.get(uri);
+      final body = jsonDecode(response.body) as List;
+      lista = body.map((e) => MusicaModel.fromMap(e)).toList();
+    } catch (e) {
+      print(e);
+    }
+    return lista;
+  }
+
   Future<void> postArtista(ArtistaModel artista) async {
     String address = getAdress();
     final uri = Uri.parse("https://$address:7107/Artista");

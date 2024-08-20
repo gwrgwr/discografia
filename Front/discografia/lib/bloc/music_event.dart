@@ -22,3 +22,9 @@ final class DeleteMusic extends MusicEvent {
 
   DeleteMusic({required this.id});
 }
+
+final class FetchMusicFromArtist extends MusicEvent {
+  final int id;
+
+  FetchMusicFromArtist({required this.id});
+}

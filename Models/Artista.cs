@@ -9,15 +9,14 @@ public class Artista
 {
     [Key]
     public int ArtistaId { get; set; }
-    [Required]
-    [StringLength(100)]
-    public string? Nome { get; set; }
+
+    [Required] [StringLength(100)] public string? Nome { get; set; }
+
     [Required]
     public int Idade { get; set; }
     [Required]
     public string? imgUrl { get; set; }
     [Required]
     public int qtdeMusica { get; set; }
-    [JsonIgnore]
     public ICollection<Musica>? musicasArtista { get; set; }
 }

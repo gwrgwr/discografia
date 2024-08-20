@@ -48,19 +48,6 @@ class _HomePageState extends State<HomePage> {
               }
 
               if (state is ArtistaSuccess) {
-                // return ListView.separated(
-                //   shrinkWrap: true,
-                //   itemCount: state.lista.length,
-                //   separatorBuilder: (context, index) => SizedBox(height: 10),
-                //   itemBuilder: (context, index) {
-                //     final item = state.lista[index];
-                //     return Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //       children: [Text(item.nome), Text(item.qtdeMusica.toString())],
-                //     );
-                //   },
-                // );
-
                 if (state.lista.isEmpty) {
                   return const Center(
                     child: Text("Lista de artistas vazia"),

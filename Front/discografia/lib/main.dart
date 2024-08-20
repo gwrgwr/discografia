@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:discografia/bloc/artista_bloc.dart';
+import 'package:discografia/bloc/music_bloc.dart';
 import 'package:discografia/services/api_handler.dart';
 import 'package:discografia/services/http_overrides.dart';
 import 'package:discografia/theme/theme.dart';
@@ -13,8 +14,9 @@ void main() {
   HttpOverrides.global = MyHttpOverrides();
   final _apiHandler = ApiHandler();
   runApp(
-    BlocProvider(
-      create: (context) => ArtistaBloc(_apiHandler),
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => ArtistaBloc(_apiHandler)),
+      BlocProvider(create: (context) => MusicBloc(_apiHandler),)],
       child: const MyApp(),
     ),
   );

@@ -11,6 +11,12 @@ final class MusicSuccess extends MusicState {
   MusicSuccess({required this.list});
 
 }
+
+final class MusicSuccesFromId extends MusicState {
+  final List<MusicaModel> list;
+
+  MusicSuccesFromId({required this.list});
+}
 final class MusicError extends MusicState {
   final String message;
 

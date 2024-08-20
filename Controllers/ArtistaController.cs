@@ -40,10 +40,10 @@ public class ArtistaController : ControllerBase
 
     }
 
-    [HttpGet("musicas")]
-    public async Task<ActionResult<IEnumerable<Artista>>> GetArtistaMusicas()
+    [HttpGet("{artistaId:int:min(1)}/musicas")]
+    public async Task<ActionResult<IEnumerable<Musica>>> GetArtistaMusicas(int artistaId)
     {
-        var content = await _context.Artistas.Include(p => p.musicasArtista).ToListAsync();
+        var content = await _context.Musicas.Where(p => p.ArtistaId == artistaId).ToListAsync();
         if (content is null)
         {
             return BadRequest();

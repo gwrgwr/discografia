@@ -6,7 +6,7 @@ class ArtistCard extends StatelessWidget {
   const ArtistCard({required this.item, super.key});
 
   final ArtistaModel item;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +40,10 @@ class ArtistCard extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () {
-              showDialog(context: context, builder: (context) => ArtistInfoWidget(item: item),);
+              showDialog(
+                context: context,
+                builder: (context) => ArtistInfoWidget(artista: item),
+              );
             },
           ),
         ],

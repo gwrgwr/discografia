@@ -27,5 +27,10 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
     on<UpdateMusic>((event, emit) async {
       _apiHandler.updateMusica(event.musicaModel.musicaId!, event.musicaModel);
     });
+  
+    on<FetchMusicFromArtist>((event, emit) async {
+      final list = await _apiHandler.fetchArtistaMusicas(artistaId: event.id);
+      emit(MusicSuccesFromId(list: list));
+    });
   }
 }
