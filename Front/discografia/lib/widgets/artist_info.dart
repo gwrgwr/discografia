@@ -183,9 +183,13 @@ class _ArtistInfoWidgetState extends State<ArtistInfoWidget> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CreateMusicPage(artista: widget.artista,); 
-            },));
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return CreateMusicPage(
+                  artista: widget.artista,
+                );
+              },
+            ));
           },
           child: Icon(
             Icons.add,

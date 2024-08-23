@@ -26,20 +26,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Discografia'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              widget.bloc.add(GetArtista());
-            },
-            icon: const Icon(
-              Icons.settings,
-            ),
-          )
-        ],
       ),
       body: Column(
         children: [
-          // TODO fetch from db local items to list, to make blocbuilder easier to rebuild after post;
+          Text(
+            "Artistas",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          SizedBox(height: 20),
           BlocBuilder<ArtistaBloc, ArtistaState>(
             bloc: widget.bloc,
             builder: (context, state) {
